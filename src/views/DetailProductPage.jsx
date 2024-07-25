@@ -31,8 +31,8 @@ export default function DetailProductPage() {
       setNoProduct(true)
       setTimeout(() => {
         setNoProduct(false)
+        navigate('/')
       }, 3000);
-      console.log('Aun no tienes productos para comprar')
     } else {
       setTranzacion(true);
       clearCart();
@@ -88,22 +88,22 @@ export default function DetailProductPage() {
                     Comprar ahora
                   </button>
                   {noProduct &&
-                    <div className=" absolute top-20 right-8">
-                      <div className=" flex items-center bg-white border border-gray-300 px-4 py-3 rounded-md space-x-2">
-                        <div className=" w-7 h-7 rounded-full bg-red-400 flex justify-center items-center">
-                          <i className=" text-white fa-solid fa-xmark"></i>
-                        </div>
-                        <div>No tiene productos en el carrito.</div>
-                      </div>
-                    </div>
-                  }
-                  {tranzacion &&
-                    <div className=" absolute top-20 right-8">
+                    <div className=" fixed top-20 right-8">
                       <div className=" flex items-center bg-white border border-gray-300 px-4 py-3 rounded-md space-x-2">
                         <div className=" w-7 h-7 rounded-full bg-green-400 flex justify-center items-center">
                           <i className=" text-white fa-solid fa-check"></i>
                         </div>
-                        <div>Tu transacción ha sido completada con éxito.</div>
+                        <p>Tu transacción ha sido completada con éxito.</p>
+                      </div>
+                    </div>
+                  }
+                  {tranzacion &&
+                    <div className=" fixed top-20 right-8">
+                      <div className=" flex items-center bg-white border border-gray-300 px-4 py-3 rounded-md space-x-2">
+                        <div className=" w-7 h-7 rounded-full bg-green-400 flex justify-center items-center">
+                          <i className=" text-white fa-solid fa-check"></i>
+                        </div>
+                        <p>Tu transacción ha sido completada con éxito.</p>
                       </div>
                     </div>
                   }
@@ -117,12 +117,12 @@ export default function DetailProductPage() {
                     Añadir al carrito
                   </button>
                   {productAdded &&
-                    <div className=" absolute top-20 right-8">
+                    <div className=" fixed top-20 right-8">
                       <div className=" flex items-center bg-white border border-gray-300 px-4 py-3 rounded-md space-x-2">
                         <div className=" w-7 h-7 rounded-full bg-green-400 flex justify-center items-center">
                           <i className=" text-white fa-solid fa-check"></i>
                         </div>
-                        <div>Producto agregado correctamente</div>
+                        <p>Producto agregado correctamente</p>
                       </div>
                     </div>
                   }

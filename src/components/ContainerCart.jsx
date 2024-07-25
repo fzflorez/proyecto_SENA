@@ -37,7 +37,7 @@ export default function ContainerCart() {
       </button>
 
       {openMenu &&
-        <div className= {`fixed max-h-screen h-full w-96 right-0 top-0 bg-white shadow-2xl p-5 z-20
+        <div className= {`fixed max-h-screen h-full w-full md:w-72 lg:w-96 right-0 top-0 bg-white shadow-2xl p-5 z-20
           ${setopenMenu ? 'animate-openMenu' : 'animate-closeMenu'}`}>
           <div className=" flex justify-end ">
             <button
@@ -123,12 +123,12 @@ export default function ContainerCart() {
                     Comprar ahora
                   </button>
                   {tranzacion &&
-                    <div className=" absolute top-1 right-0">
+                    <div className=" fixed top-2 right-12 max-w-80">
                       <div className=" flex items-center bg-white border border-gray-300 px-4 py-2 rounded-md space-x-1">
                         <div className=" w-7 h-7 rounded-full bg-green-400 flex justify-center items-center">
                           <i className=" text-white fa-solid fa-check"></i>
                         </div>
-                        <div className=" text-custom-16">Tu transacción ha sido completada con éxito.</div>
+                        <p className=" text-custom-16">Tu transacción ha sido completada con éxito.</p>
                       </div>
                     </div>
                   }

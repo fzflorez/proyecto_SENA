@@ -55,7 +55,7 @@ export const AuthContextProvider = ({ children }) => {
       return data
 
     } catch (error) {
-      alert(error)
+      console.log(error)
     }
   }
 
@@ -73,19 +73,21 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session === null) {
-        // navigate("/login")
+        //navigate("/login")
         setCart([])
       } else {
         setUser(session?.user.user_metadata)
         setAuthProvider(session?.user.app_metadata)
-        // navigate("/")
+        if (window.location.pathname === "/login") {
+          navigate("/");
+        }
         // console.log("data del usuario", session.user.user_metadata)
       }
     })
     return () => {
-      authListener.subscription;
+      authListener.subscription?.unsubscribe();
     }
-  }, []);
+  }, [navigate]);
 
   function addToCart(item) {
     const itemExists = cart.findIndex((product) => product.id === item.id)

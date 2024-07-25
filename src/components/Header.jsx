@@ -12,10 +12,9 @@ export default function Header() {
     setOpenProfile(!openProfile);
   }
 
-  function getInitials(name) {
-    const words = name.split(' ');
-    const initials = words.map(word => word.charAt(0).toUpperCase()).join('');
-    return initials;
+  function getInitial(name) {
+    const firstWord = name.split(' ')[0];
+    return firstWord.charAt(0).toUpperCase();
   }
 
 
@@ -59,14 +58,14 @@ export default function Header() {
 
                       {authProvider.provider === "email" && (
                         <div onClick={handleOpenProfile} className=" w-9 h-9 rounded-full bg-slate-500 flex justify-center items-center cursor-pointer">
-                          <p className=" text-white">{getInitials(user.name)}</p>
+                          <p className=" text-white font-semibold">{getInitial(user.name)}</p>
                         </div>
                       )}
                     </>
                   }
 
                   {openProfile &&
-                    <div className=" fixed top-14 right-0 shadow-sm shadow-gray-400 bg-gray-50 rounded-xl min-w-60 min-h-20 px-4 py-2 flex flex-col items-center space-y-3">
+                    <div className=" fixed top-14 right-0 shadow-sm shadow-gray-400 bg-gray-50 rounded-xl min-w-48 min-h-20 px-6 py-2 flex flex-col items-center space-y-3">
                       <div className=" flex flex-col items-center space-y-2">
                         <h2 className=" text-sm sm:text-custom-16 md:text-custom-16 lg:text-lg ">¡Hola, {user.name}!</h2>
                       </div>

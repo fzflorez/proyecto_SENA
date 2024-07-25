@@ -10,8 +10,8 @@ export default function RegisterPage() {
   const [formData, setFormData] = useState({
     name: '', email: '', password: ''
   })
+  const [errorMesaage, setErrorMessage] = useState('');
 
-  console.log(formData)
 
   function handleChange(e) {
     setFormData((prevFormData) => {
@@ -24,6 +24,16 @@ export default function RegisterPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (formData.email === '' || formData.password === '') {
+      console.log('Todos los Campos')
+      setErrorMessage('Todos los campos son obligatorios.')
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 3000);
+    } else {
+      setErrorMessage('')
+    }
     
     try {
       const { data, error } = await supabase.auth.signUp(
@@ -42,7 +52,7 @@ export default function RegisterPage() {
       alert('revisa tu correo electrónico para ver el enlace de verificación');
 
     } catch (error) {
-      alert(error)
+      console.log(error)
     }
   }
 
@@ -76,8 +86,12 @@ export default function RegisterPage() {
               </div>
             </div>
 
+            {errorMesaage &&
+              <p className=" text-red-600  pb-4">{errorMesaage}</p>
+            }
+
             <div className=" md:w-4/5 w-full border border-gray-300 rounded-md py-7 px-5 flex flex-col justify-center">
-              <label htmlFor="email" className=" text-gray-800 text-sm sm:text-sm lg:text-custom-16 font-semibold">Nombre</label>
+              <label htmlFor="name" className=" text-gray-800 text-sm sm:text-sm lg:text-custom-16 font-semibold">Nombre</label>
               <input
                 type="text"
                 name="name"
@@ -107,6 +121,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 className=" w-28 h-9 uppercase text-xs sm:text-xs md:text-sm font-normal text-white bg-slate-700 mt-2"
+                onClick={handleSubmit}
               > Registrarme
               </button>
             </div>

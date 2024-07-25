@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [formData, setFormData] = useState({
     email: '', password: ''
   })
+  const [errorMesaage, setErrorMessage] = useState('');
 
   function handleChange(e) {
     setFormData((prevFormData) => {
@@ -19,6 +20,17 @@ export default function LoginPage() {
         [e.target.name]: e.target.value
       }
     })
+  }
+
+  function handleSubmitButton() {
+    if (formData.email === '' || formData.password === '') {
+      setErrorMessage('Todos los campos son obligatorios.')
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 3000);
+      return;
+    }
+    singnInWithEmail(formData)
   }
 
   async function handleSubmit(e, singInProvider) {
@@ -30,7 +42,6 @@ export default function LoginPage() {
       } catch (error) {
         console.log(error)
       }
-
       singnInWithEmail(formData)
     } else if (singInProvider === "google") {
       try {
@@ -70,6 +81,10 @@ export default function LoginPage() {
               </div>
             </div>
 
+            {errorMesaage &&
+              <p className=" text-red-600  pb-4">{errorMesaage}</p>
+            }
+
             <div className=" md:w-4/5 w-full border border-gray-300 rounded-md py-7 px-5 flex flex-col justify-center">
               <label htmlFor="email" className=" text-gray-800 text-sm sm:text-sm lg:text-custom-16 font-semibold">Correo eléctronico</label>
               <input
@@ -92,6 +107,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 className=" w-28 h-9 uppercase text-xs sm:text-xs md:text-sm  font-normal text-white bg-slate-700 mt-2"
+                onClick={handleSubmitButton}
               > ingresar
               </button>
               <Link to="" className=" text-sm font-semibold text-slate-900 mt-6">Olviste tu contraseña?</Link>
@@ -100,16 +116,16 @@ export default function LoginPage() {
 
           <span>o</span>
 
-          <div
+          <button
+            type="submit"
+            className=" flex items-center px-8 py-2 border-2 border-slate-800 rounded-lg space-x-2"
             onClick={(evt) => handleSubmit(evt, "google")}
-            className=" flex items-center px-8 py-2 border-2 border-slate-800 rounded-lg space-x-2 cursor-pointer">
+          >
             <img src="/images/logo-google.png" alt="" className=" w-5 h-5" />
-            <button
-              type="submit"
+            <p
               className=" text-sm sm:text-sm md:text-custom-16 font-semibold"
-            > Continuar con Google
-            </button>
-          </div>
+            >Continuar con Google</p>
+          </button>
         </div>
       </div>
 

@@ -14,12 +14,10 @@ export default function ProductsPage() {
   const {addToCart, cart, removeFromCart, decreaseQuantity, increaseQuantity, amountTotal} = useAuth();
   const param = useParams();
 
-  console.log(param)
   useEffect(()=>{
     const fetchData= async()=>{
       const res= await supabase.from("products").select("*").eq("category",param.id)
       const category= await supabase.from("categories").select("*").eq("id",param.id)
-      console.log(category)
       setProducts(res.data)
       setCategory(category.data[0])
     } 
